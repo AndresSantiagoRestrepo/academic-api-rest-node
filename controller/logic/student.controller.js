@@ -24,6 +24,8 @@ exports.createStudent = (req, res, next) => {
     };
     studentDto.create(std, (err, data) => {
         if (err) {
+    
+
             return res.status(400).json({
                 error: err
             });
