@@ -25,7 +25,7 @@ schema.statics={
         this.find(query,cb);
     },
     
-    uptdate:function(query,data,cb){
+    update:function(query,data,cb){
         this.findOneAndUpdate(query,{$set:data},{new:true},cb);
     },
     
