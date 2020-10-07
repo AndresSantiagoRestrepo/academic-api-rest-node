@@ -38,6 +38,8 @@ exports.createStudent = (req, res, next) => {
             password: helper.EncryptPassword(req.body.password),
             role: r
 
+
+            
         };
         userDto.create(user, (err, u) => {
 
