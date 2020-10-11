@@ -5,7 +5,7 @@
 const mongoose= require ("mongoose");
 
 /**Using Schemas */
-const schema=require("../schemas/user.schema");
+const schema=require("../schemas/department.schema");
 schema.statics={
     create:function(data,cb){
         let doc = new this(data);
@@ -20,10 +20,6 @@ schema.statics={
 
         this.find(query,cb);
     },
-    login:function(query,cb){
-
-        this.find(query,cb);
-    },
     
     update:function(query,data,cb){
         this.findOneAndUpdate(query,{$set:data},{new:true},cb);
@@ -34,7 +30,8 @@ schema.statics={
     }
 };
 
-const dto = mongoose.model("coll_user",schema)
+const dto = mongoose.model("coll_department",schema)
 module.exports=dto;
+
 
 

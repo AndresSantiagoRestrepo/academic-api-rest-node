@@ -24,8 +24,6 @@ exports.createStudent = (req, res, next) => {
     };
     studentDto.create(std, (err, data) => {
         if (err) {
-    
-
             return res.status(400).json({
                 error: err
             });
@@ -39,7 +37,7 @@ exports.createStudent = (req, res, next) => {
             role: r
 
 
-            
+
         };
         userDto.create(user, (err, u) => {
 

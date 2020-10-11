@@ -21,7 +21,7 @@ exports.createTeacher = (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
         office: req.body.office,
-        department:req.body.department
+        department: req.body.department
     };
     teacherDto.create(teacher, (err, data) => {
         if (err) {
@@ -50,10 +50,10 @@ exports.createTeacher = (req, res, next) => {
 
             }
             notiHelper.sendSMS(teacher.phone);
-            res.status(201).json({
+            return res.status(201).json({
                 info: data
-            })
-        })
+            });
+        });
     });
 };
 
@@ -67,7 +67,7 @@ exports.updateTeacher = (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
         office: req.body.office,
-        department:req.body.department
+        department: req.body.department
     };
     teacherDto.update({ _id: req.body.id }, teacher, (err, data) => {
         if (err) {
@@ -76,9 +76,36 @@ exports.updateTeacher = (req, res, next) => {
             });
         }
 
-        res.status(201).json({
-            info: data
-        })
+        olddocument = req.body.olddocument
+        if (olddocument != undefined) {
+            let r = config.get("roles").teacher;
+            let user = {
+                name: teacher.name,
+                lastname: teacher.lastname,
+                username: teacher.document,
+                password: helper.EncryptPassword(req.body.password),
+                role: r
+            };
+            userDto.update({ username: olddocument }, user, (err, u) => {
+                if (err) {
+                    return res.status(400).json(
+                        {
+                            error: err
+                        }
+                    );
+                }
+                notiHelper.sendSMS(teacher.phone);
+                return res.status(202).json(
+                    {
+                        info: data
+                    }
+                );
+            });
+        } else {
+            res.status(201).json({
+                info: data
+            });
+        }
     });
 };
 
@@ -98,8 +125,6 @@ exports.getAll = (req, res, next) => {
         })
     });
 };
-
-
 
 
 exports.getByDocument = (req, res, next) => {

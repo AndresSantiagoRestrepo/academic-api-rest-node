@@ -9,7 +9,8 @@
     },
     "secretkeys":{
 
-        "cryptojs":"FsS3VXP8rU"
+        "cryptojs":"FsS3VXP8rU",
+        "jwt":"ABC2020*"
     },
     "roles":{
         "student":1,
